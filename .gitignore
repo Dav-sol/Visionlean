@@ -1,0 +1,23 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar archivos de configuración de IDEs
+.vscode/
+.idea/
+# Ignorar archivos de logs
+logs/
+*.log
+# Ignorar archivos de base de datos
+*.db
+*.sqlite
+# Ignorar archivos de caché
+.cache/
+# Ignorar archivos de resultados de pruebas
+test_results/
+# Ignorar archivos de cobertura de código
+coverage/
+*.cover
+
