@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VisionLean Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#F8FAFC] font-sans text-slate-900 antialiased">
+    <div id="app" class="min-h-screen p-4 md:p-6">
+        <!-- Header -->
+        <header class="max-w-full mx-auto flex flex-wrap justify-between items-center mb-8 px-4">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-navigation rotate-45">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight text-slate-800">
+                    Vision<span class="text-indigo-600">Lean</span>
+                </h1>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Live</span>
+                    <span id="clock" class="text-sm font-medium text-slate-800 ml-2">--:--</span>
+                </div>
+                <div
+                    class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 border border-slate-100 shadow-sm cursor-pointer hover:bg-slate-50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-user">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-full mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-6">
+
+            <!-- Left Column -->
+            <div class="md:col-span-1 lg:col-span-2 flex flex-col gap-6">
+                <div class="flex flex-col gap-3">
+                    <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1 px-1">KPIs
+                        Principales</h3>
+
+                    <!-- KPI Cards -->
+                    <div class="bg-white rounded-2xl p-4 flex items-center gap-4 shadow-sm border border-slate-50">
+                        <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-car">
+                                <path
+                                    d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+                                <circle cx="7" cy="17" r="2" />
+                                <path d="M9 17h6" />
+                                <circle cx="17" cy="17" r="2" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">
+                                Vehículos Totales</p>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-semibold text-slate-800" id="totalVehicles">49</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 flex items-center gap-4 shadow-sm border border-slate-50">
+                        <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-activity">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">
+                                Vehículos / Minuto</p>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-semibold text-slate-800" id="vehPerMin">12.3</span>
+                                <span class="text-xs text-slate-400 font-medium">veh/min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 flex items-center gap-4 shadow-sm border border-slate-50">
+                        <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-gauge">
+                                <path d="m12 14 4-4" />
+                                <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">
+                                Índice de Saturación</p>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-semibold text-slate-800" id="saturation">30%</span>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full text-emerald-600 bg-emerald-50">
+                            Flujo Normal
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 flex items-center gap-4 shadow-sm border border-slate-50">
+                        <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-clock">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">
+                                Tiempo de Análisis</p>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-semibold text-slate-800" id="analysisTime">00:04:35</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distribution Chart -->
+                <div
+                    class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex-1">
+                    <h3 class="text-slate-500 text-sm font-medium mb-4 uppercase tracking-wider">Distribución por Tipo
+                        de Vehículo</h3>
+                    <div class="h-[200px] w-full relative">
+                        <canvas id="vehicleChart"></canvas>
+                    </div>
+                    <div id="vehicleLegend" class="mt-4 space-y-2">
+                        <!-- Legend items will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Column -->
+            <div class="md:col-span-2 lg:col-span-8 flex flex-col gap-6">
+                <div
+                    class="bg-white rounded-3xl p-0 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden relative group">
+                    <div
+                        class="absolute top-6 left-1/2 -translate-x-1/2 z-10 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20">
+                        <span class="text-xs md:text-[10px] font-bold text-white uppercase tracking-[0.2em]">Video en
+                            Vivo —
+                            Intersección</span>
+                    </div>
+
+                    <div class="relative aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-inner">
+                        <video src="/home/david/Proyectos/DataTraffic/mobility_iq_gates_final.mp4" class="w-full h-full object-cover opacity-80  origin-center" autoplay muted loop
+                            playsinline preload="none">
+                        </video>
+                        class="w-full h-full object-cover opacity-80" referrerPolicy="no-referrer" />
+
+                        <!-- Live Indicator -->
+                        <div class="absolute top-4 right-4 flex items-center gap-2 bg-rose-600 px-3 py-1 rounded-md">
+                            <div class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></div>
+                            <span class="text-xs md:text-[10px] font-bold text-white uppercase tracking-wider">En
+                                Vivo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex-1">
+                    <h3 class="text-slate-500 text-sm font-medium mb-4 uppercase tracking-wider">Vehículos por Minuto
+                    </h3>
+                    <div class="h-[240px] w-full">
+                        <canvas id="flowChart"></canvas>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tiempo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="md:col-span-1 lg:col-span-2 flex flex-col gap-6">
+                <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                    <h3 class="text-slate-500 text-sm font-medium mb-4 uppercase tracking-wider">Flujo por Puerta</h3>
+                    <div id="gatesList" class="space-y-6">
+                        <!-- Gate items will be injected here -->
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex-1">
+                    <h3 class="text-slate-500 text-sm font-medium mb-4 uppercase tracking-wider">Eficiencia por Puerta
+                        (LoS)</h3>
+                    <div class="overflow-hidden rounded-xl border border-slate-100">
+                        <table class="w-full text-[11px] text-left">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-400 uppercase tracking-tighter">
+                                    <th class="p-3 font-bold">Puerta</th>
+                                    <th class="p-3 font-bold text-center">Carga</th>
+                                    <th class="p-3 font-bold text-right">Estado (LoS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="efficiencyTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-4 text-[9px] text-slate-400 italic">* LoS: Level of Service basado en
+                        volumen/capacidad.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script>
+
+        const API = "http://localhost:8000/dashboard"
+
+        let vehicleChart
+        let flowChart
+        let gatesDistChart;
+
+        async function loadDashboard() {
+            try {
+                // Definimos las URLs de tus endpoints
+                const DASHBOARD_API = 'http://localhost:8000/dashboard';
+                const LOGS_API = 'http://localhost:8000/logs';
+                const [resDash, resLogs] = await Promise.all([
+                    fetch(DASHBOARD_API),
+                    fetch(LOGS_API)
+                ]);
+
+                const data = await resDash.json();
+                const logs = await resLogs.json();
+
+                updateKPIs(data.kpis);
+                if (data.vehicle_types) renderVehicleChart(data.vehicle_types);
+                if (data.flow_per_minute) renderFlowChart(data.flow_per_minute);
+                renderGates(data.gates);
+                renderEfficiencyTable(data.gates, data.kpis.analysis_time);
+            } catch (e) {
+                console.error("Error al sincronizar datos:", e);
+            }
+        }
+        function renderEfficiencyTable(gates, analysisTimeStr) {
+            const container = document.getElementById("efficiencyTableBody");
+            if (!container || !gates) return;
+
+            // Convertimos el string "00:01:06" a minutos totales
+            const parts = analysisTimeStr.split(':');
+            const hours = parseInt(parts[0]) || 0;
+            const minutes = parseInt(parts[1]) || 0;
+            const seconds = parseInt(parts[2]) || 0;
+
+            // Tiempo total en minutos (mínimo 0.1 para evitar división por cero)
+            const totalMinutes = Math.max((hours * 60) + minutes + (seconds / 60), 0.1);
+
+            container.innerHTML = "";
+
+            Object.entries(gates).forEach(([name, value]) => {
+                const displayName = name.replace("Puerta_", "");
+
+                // CAPACIDAD DINÁMICA: 30 vehículos por cada minuto transcurrido
+                const currentCapacity = 30 * totalMinutes;
+                const doorLoadPercent = (value / currentCapacity) * 100;
+
+                let los, colorClass, label;
+
+                if (doorLoadPercent > 85) {
+                    los = "E";
+                    label = "Saturado";
+                    colorClass = "text-rose-600 bg-rose-50 border border-rose-100";
+                } else if (doorLoadPercent > 45) {
+                    los = "C";
+                    label = "Estable";
+                    colorClass = "text-amber-600 bg-amber-50 border border-amber-100";
+                } else {
+                    los = "A";
+                    label = "Libre";
+                    colorClass = "text-emerald-600 bg-emerald-50 border border-emerald-100";
+                }
+
+                container.innerHTML += `
+            <tr class="border-t border-slate-50 hover:bg-slate-50/50 transition-colors">
+                <td class="p-3">
+                    <div class="flex flex-col">
+                        <span class="font-bold text-slate-700 capitalize">${displayName}</span>
+                        <span class="text-[9px] text-slate-400 font-medium uppercase leading-none">Acceso Vial</span>
+                    </div>
+                </td>
+                <td class="p-3 text-center">
+                    <span class="text-sm font-semibold text-slate-600">${value}</span>
+                    <span class="text-[10px] text-slate-400 ml-0.5">veh</span>
+                </td>
+                <td class="p-3 text-right">
+                    <span class="inline-flex items-center justify-center px-2 py-1 rounded-lg font-bold text-[10px] ${colorClass}">
+                        Nivel ${los} • ${label}
+                    </span>
+                </td>
+            </tr>
+        `;
+            });
+        }
+
+        function updateKPIs(kpis) {
+            const totalVehicles = document.getElementById("totalVehicles");
+            const vehPerMin = document.getElementById("vehPerMin");
+            const saturation = document.getElementById("saturation");
+            const analysisTime = document.getElementById("analysisTime");
+
+            // Actualizaciones básicas con verificación (Optional Chaining)
+            if (totalVehicles) totalVehicles.innerText = kpis.vehicles_total;
+            if (vehPerMin) vehPerMin.innerText = kpis.vehicles_per_minute;
+
+            if (saturation) {
+                const satValue = parseInt(kpis.saturation);
+                saturation.innerText = satValue + "%";
+
+                // Buscamos el badge de forma segura
+                const parent = saturation.parentElement;
+                const badge = parent ? parent.nextElementSibling : null;
+
+                if (badge) {
+                    if (satValue > 100) {
+                        badge.innerText = "Saturado";
+                        badge.className = "flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full text-rose-600 bg-rose-50";
+                    } else {
+                        badge.innerText = "Flujo Normal";
+                        badge.className = "flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full text-emerald-600 bg-emerald-50";
+                    }
+                }
+            }
+
+            if (analysisTime && kpis.analysis_time) {
+                analysisTime.innerText = kpis.analysis_time.split('.')[0];
+            }
+        }
+
+        function updateEventLog(logs) {
+            const container = document.getElementById("gatesDetail");
+            if (!container) return;
+
+            // VALIDACIÓN: Si logs es nulo o no es una lista, detenemos la ejecución
+            if (!logs || !Array.isArray(logs)) {
+                console.warn("Los logs no son un array válido:", logs);
+                return;
+            }
+
+            container.innerHTML = "";
+
+            logs.forEach(event => {
+                const colors = {
+                    'car': 'bg-indigo-500',
+                    'truck': 'bg-orange-500',
+                    'bus': 'bg-amber-500',
+                    'motorcycle': 'bg-emerald-500'
+                };
+                const dotColor = colors[event.vehicle] || 'bg-slate-400';
+
+                container.innerHTML += `
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
+                <div class="w-2.5 h-2.5 rounded-full ${dotColor}"></div>
+                <div class="flex-1">
+                    <p class="text-xs font-bold text-slate-700 capitalize">${event.vehicle || 'Vehículo'} detectado</p>
+                    <p class="text-[10px] text-slate-400 uppercase font-medium">Puerta ${event.gate || '--'} • ${event.time || '--'}</p>
+                </div>
+                <span class="text-[9px] font-mono font-bold text-slate-300">#${event.id || '0'}</span>
+            </div>
+        `;
+            });
+        }
+        function renderGates(gates) {
+
+            const container = document.getElementById("gatesList")
+            container.innerHTML = ""
+
+            const max = Math.max(...Object.values(gates))
+
+            Object.entries(gates).forEach(([name, value]) => {
+
+                const percent = (value / max) * 100
+
+                container.innerHTML += `
+
+<div>
+<div class="flex justify-between text-sm font-medium text-slate-700 mb-1">
+<span>${name.replace("Puerta_", "")}</span>
+<span>${value}</span>
+</div>
+
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+
+<div 
+class="bg-indigo-500 h-2 rounded-full"
+style="width:${percent}%"
+></div>
+
+</div>
+
+</div>
+
+`
+
+            })
+
+        }
+
+        function renderVehicleChart(types) {
+            const ctx = document.getElementById("vehicleChart");
+
+            // Destruir instancia previa si existe
+            if (vehicleChart) {
+                vehicleChart.destroy();
+            }
+
+            vehicleChart = new Chart(ctx, {
+                type: "doughnut",
+                data: {
+                    labels: Object.keys(types),
+                    datasets: [{
+                        data: Object.values(types),
+                        backgroundColor: ["#6366F1", "#10B981", "#F59E0B", "#EF4444"],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,           // Asegura que respete el tamaño del padre
+                    maintainAspectRatio: false, // Evita que crezca infinitamente
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            renderVehicleLegend(types);
+        }
+
+        function renderVehicleLegend(types) {
+
+            const container = document.getElementById("vehicleLegend")
+            container.innerHTML = ""
+
+            Object.entries(types).forEach(([type, value]) => {
+
+                container.innerHTML += `
+
+<div class="flex justify-between text-sm">
+
+<span class="capitalize text-slate-600">${type}</span>
+
+<span class="font-semibold">${value}</span>
+
+</div>
+
+`
+
+            })
+
+        }
+
+        function renderFlowChart(flow) {
+            const ctx = document.getElementById("flowChart");
+
+            if (flowChart) {
+                flowChart.destroy();
+            }
+
+            flowChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: flow.map(x => "min " + x.minute),
+                    datasets: [{
+                        label: "Veh/min",
+                        data: flow.map(x => x.count),
+                        borderColor: "#6366F1",
+                        backgroundColor: "rgba(99,102,241,0.1)",
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Crucial para que no se deforme
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: {
+                            beginAtZero: true, // Evita saltos extraños en el eje Y
+                            grid: { color: "#eee" }
+                        }
+                    }
+                }
+            });
+        }
+        // Añade esta función para llenar el panel derecho
+
+
+
+        setInterval(loadDashboard, 2000)
+
+        loadDashboard()
+
+    </script>
+</body>
+
+</html>

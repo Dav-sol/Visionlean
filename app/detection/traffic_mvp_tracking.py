@@ -8,7 +8,7 @@ from collections import defaultdict
 # 1. Configuración de Mobility IQ
 print("Iniciando Mobility IQ: Sistema de Puertas Independientes...")
 model = YOLO("yolov8n.pt")
-video_path = "/home/david/Proyectos/DataTraffic/data/Video.mp4"
+video_path = "Video.mp4"
 cap = cv2.VideoCapture(video_path)
 
 # Dimensiones reales del video para evitar descuadres
