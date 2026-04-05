@@ -21,21 +21,31 @@ fps = cap.get(cv2.CAP_PROP_FPS)
 gates = {
     "Puerta_Norte": { 
         "line": [(int(w*0.42), int(h*0.35)), (int(w*0.58), int(h*0.35))],
-        "color": (255, 165, 0),"count": 0, "type": "horizontal"
+        "color": (255,165,0),
+        "count": 0,
+        "type": "horizontal"
     },
+
     "Puerta_Sur": { 
         "line": [(int(w*0.50), int(h*0.85)), (int(w*0.70), int(h*0.85))],
-        "color": (0, 0, 255), "count": 0, "type": "horizontal"
+        "color": (0,0,255),
+        "count": 0,
+        "type": "horizontal"
     },
-    "Puerta_Izquierda": { 
-        "line": [(int(w*0.18), int(h*0.60)), (int(w*0.18), int(h*0.68))],
-        "color": (255, 0, 0), "count": 0, "type": "vertical"
-    },
-    "Puerta_Derecha": { 
-    "line": [(int(w*0.93), int(h*0.63)), (int(w*0.93), int(h*0.74))],
-    "color": (0, 0, 255), "count": 0, "type": "vertical" 
-},
 
+    "Puerta_Izquierda": { 
+        "line": [(int(w*0.18), int(h*0.60)), (int(w*0.18), int(h*0.70))],
+        "color": (255, 0, 0),
+        "count": 0,
+        "type": "vertical"
+    },
+
+    "Puerta_Derecha": { 
+        "line": [(int(w*0.94), int(h*0.65)), (int(w*0.94), int(h*0.84))],
+        "color": (0, 0, 255),
+        "count": 0,
+        "type": "vertical"
+    }
 }
 
 INTERSECTION_ID = "BRQ_INT_01"
@@ -120,11 +130,6 @@ while cap.isOpened():
             # Dibujar BBox minimalista
             cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 255, 255), 1)
 
-    # --- Configuración del HUD ---
-    cv2.rectangle(frame, (10, 10), (280, 160), (0, 0, 0), -1)
-    for i, (name, g) in enumerate(gates.items()):
-        cv2.putText(frame, f"{name}: {g['count']}", (25, 40 + (i*30)),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, g["color"], 2)
 
     out_video.write(frame)
 
